@@ -1,10 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:product_catalogue/screens/auth/signup_screen.dart';
-import 'package:provider/provider.dart';
+// lib/screens/auth/login_screen.dart
+// Email + password login screen. Navigates to register or forgot-password.
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 import '../../utils/app_theme.dart';
 import '../../widgets/custom_text_field.dart';
+import 'signup_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,30 +17,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // Form key to manage form state and validation
+  // Form key used to trigger validation
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers to capture user input for email and password
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  // Controllers hold text field values
+  final _emailCtrl = TextEditingController();
+  final _passwordCtrl = TextEditingController();
 
   @override
   void dispose() {
-    // Dispose controllers to free up resources when the widget is removed from the widget tree
-    _emailController.dispose();
-    _passwordController.dispose();
+    _emailCtrl.dispose();
+    _passwordCtrl.dispose();
     super.dispose();
   }
 
-  // Submit Handler for the login form
+  // Handles form submission for login
   Future<void> _submit() async {
     // Validate all form fields first
     if (!_formKey.currentState!.validate()) return;
 
     final auth = context.read<AuthProvider>();
     final success = await auth.login(
-      email: _emailController.text,
-      password: _passwordController.text,
+      email: _emailCtrl.text,
+      password: _passwordCtrl.text,
     );
 
     if (!success && mounted) {
@@ -66,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
+                // Header section with icon and welcome text
                 const Icon(
                   Icons.inventory_2,
                   size: 56,
@@ -86,9 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // Email Field
                 CustomTextField(
-                  controller: _emailController,
+                  controller: _emailCtrl,
                   label: 'Email',
-                  hint: 'Enter your email',
+                  hint: 'you@example.com',
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validators.email,
@@ -97,16 +99,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // Password Field
                 CustomTextField(
-                  controller: _passwordController,
+                  controller: _passwordCtrl,
                   label: 'Password',
-                  hint: 'Enter your password',
-                  prefixIcon: Icons.lock_outline,
+                  prefixIcon: Icons.lock_outlined,
                   isPassword: true,
                   validator: Validators.password,
                 ),
+                const SizedBox(height: 8),
+                // Forgot Password link aligned to the right
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ForgotPasswordScreen(),
+                      ),
+                    ),
+                    child: const Text('Forgot password?'),
+                  ),
+                ),
                 const SizedBox(height: 24),
 
-                // Login Button
+                // Sign In button with loading indicator
                 ElevatedButton(
                   onPressed: auth.isLoading ? null : _submit,
                   child: auth.isLoading
@@ -122,19 +137,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Footer: Link to Register
+                // Sign Up link for users without an account
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: TextStyle(color: Colors.grey[700]),
+                      style: TextStyle(color: Colors.grey[600]),
                     ),
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => const SignupScreen(),
+                        MaterialPageRoute(builder: (_) => const SignupScreen()),
+                      ),
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: AppTheme.primary,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
