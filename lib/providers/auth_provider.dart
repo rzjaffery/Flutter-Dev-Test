@@ -1,19 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:product_catalogue/services/auth_service.dart';
-
+// lib/providers/auth_provider.dart
 // Bridges Firebase Auth events to the widget tree using ChangeNotifier.
 // All screens read auth state from here rather than touching Firebase directly.
 
-// AuthStatus represents the current authentication state of the user.
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../services/auth_service.dart';
+
+/// Possible states for async auth operations
 enum AuthStatus { idle, loading, success, error }
 
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
 
-  // State variables
-  AuthStatus _status = AuthStatus.idle;
+  // State Variables
   User? _user;
+  AuthStatus _status = AuthStatus.idle;
   String? _errorMessage;
 
   // Getters for external access
@@ -23,15 +24,15 @@ class AuthProvider extends ChangeNotifier {
   bool get isAuthenticated => _user != null;
   bool get isLoading => _status == AuthStatus.loading;
 
-  // Constructor: Listen to Firebase auth state changes
+  // Constructor: Listen to Firebase Auth state changes and update the provider state accordingly
   AuthProvider() {
     _authService.authStateChanges.listen((User? user) {
       _user = user;
-      notifyListeners();
+      notifyListeners(); // Rebuild dependent widgets whenever auth state changes
     });
   }
 
-  // Helpers
+  // Helpers to manage state transitions and notify listeners
   void _setLoading() {
     _status = AuthStatus.loading;
     _errorMessage = null;
@@ -56,7 +57,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // REGISTER
+  // Register a new user with email, password, and display name
   Future<bool> register({
     required String email,
     required String password,
@@ -77,7 +78,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  // LOGIN
+  // Login an existing user with email and password
   Future<bool> login({required String email, required String password}) async {
     _setLoading();
     try {
@@ -90,14 +91,14 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  // LOGOUT
+  // Logout the currently authenticated user
   Future<void> logout() async {
     await _authService.logout();
     _status = AuthStatus.idle;
     notifyListeners();
   }
 
-  //FORGOT PASSWORD
+  // Send a password reset email to the specified email address
   Future<bool> sendPasswordResetEmail(String email) async {
     _setLoading();
     try {
@@ -110,7 +111,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  // CHANGE PASSWORD
+  // Change the password for the currently authenticated user
   Future<bool> changePassword({
     required String currentPassword,
     required String newPassword,
