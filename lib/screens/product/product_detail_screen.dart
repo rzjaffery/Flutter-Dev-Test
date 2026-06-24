@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/product_model.dart';
-import '../../providers/auth_provider.dart';
 import '../../providers/product_provider.dart';
 import '../../utils/app_theme.dart';
 import 'product_form_screen.dart';
@@ -113,7 +112,7 @@ class ProductDetailScreen extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: AppTheme.primary.withOpacity(0.1),
+                      color: AppTheme.primary.withValues(alpha: 25),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
