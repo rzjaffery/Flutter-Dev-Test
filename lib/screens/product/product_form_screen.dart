@@ -185,7 +185,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 
               // Product Category dropdown
               DropdownButtonFormField<String>(
-                value: _selectedCategory,
+                initialValue: _selectedCategory,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   prefixIcon: const Icon(Icons.category_outlined),
