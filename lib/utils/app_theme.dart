@@ -69,13 +69,13 @@ class AppTheme {
         borderSide: const BorderSide(color: error),
       ),
     ),
-    // cardTheme: CardTheme(
-    //   color: surface,
-    //   elevation: 2,
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(16),
-    //   ),
-    // ),
+    cardTheme: CardTheme(
+      color: surface,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
   );
 }
 
