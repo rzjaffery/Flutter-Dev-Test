@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:product_catalogue/providers/product_provider.dart';
 import 'package:product_catalogue/screens/product/product_detail_screen.dart';
+import 'package:product_catalogue/screens/product/product_form_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth_provider.dart';
 import '../../utils/app_theme.dart';
+import '../../widgets/product_card.dart';
 import '../auth/change_password_screen.dart';
 
 // HomeScreen is the main landing page after login, showing a welcome message and navigation options.
