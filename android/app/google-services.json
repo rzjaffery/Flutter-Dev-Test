@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "40704136538",
+    "project_id": "product-catalogue-zyne",
+    "storage_bucket": "product-catalogue-zyne.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40704136538:android:5141e3727ddc69a05c8f63",
+        "android_client_info": {
+          "package_name": "com.rzjaffery.product_catalogue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbiDzrlbaqrrofkRQr0kIcSOYqM3bzXTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
