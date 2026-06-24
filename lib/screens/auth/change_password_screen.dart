@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth_provider.dart';
-import '../../utils/app_theme.da
 import '../../utils/app_theme.dart';
-import '../../widgets/custom_text_field.dart';rt';
+import '../../widgets/custom_text_field.dart';
 
 // Screen for changing the user's password
 
