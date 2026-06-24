@@ -56,7 +56,6 @@ class DefaultFirebaseOptions {
     projectId: 'product-catalogue-zyne',
     storageBucket: 'product-catalogue-zyne.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAydoBK0-MDaRiMyi60FkfC3OVWIVen5Ls',
     appId: '1:40704136538:ios:230868aa50363a555c8f63',
@@ -65,7 +64,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'product-catalogue-zyne.firebasestorage.app',
     iosBundleId: 'com.rzjaffery.productCatalogue',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAydoBK0-MDaRiMyi60FkfC3OVWIVen5Ls',
     appId: '1:40704136538:ios:230868aa50363a555c8f63',
